@@ -1,7 +1,7 @@
 import asyncio
-from api_songrecog.audio_processing import audio_record
-from api_songrecog.audio_processing import audio_analyse
-from api_songrecog.last_fm import lastfm_api
+from song_recognition.services.recognition import audio_record
+from song_recognition.services.recognition import audio_analyse
+from song_recognition.services.artwork import lastfm_api
 import io
 from icecream import ic
 

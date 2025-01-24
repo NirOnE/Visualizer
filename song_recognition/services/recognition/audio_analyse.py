@@ -4,8 +4,8 @@ from icecream import ic
 import acrcloud
 from shazamio import Shazam
 import asyncio
-from api_songrecog.audio_processing.arccloud_errors import ApiError
-from api_songrecog.audio_processing.functions_arcloud import get_all_keys_with_positions, get_keys, get_value_for_key, escape_ansi
+from song_recognition.core.exceptions import ApiError
+from song_recognition.services.recognition.functions_arcloud import get_all_keys_with_positions, get_keys, get_value_for_key, escape_ansi
 
 load_dotenv()
 
@@ -23,7 +23,7 @@ _acrcloud__client_host = os.getenv("ACRCLOUD_CLIENT_HOST")
 # ic(_acrcloud__client_host)
 
 
-def analyze_audio_acr(mdatas: {}) -> int:
+def analyze_audio_acr(mdatas: {}) -> int: # type: ignore
     """ Analyse the song track and get the metadata from AcrCloud
 
     Args:
@@ -106,7 +106,7 @@ def analyze_audio_acr(mdatas: {}) -> int:
         return error_code
 
 
-async def analyze_audio_shaz(mdatas: {}) -> int:
+async def analyze_audio_shaz(mdatas: {}) -> int: # type: ignore
     """analyse the song track and get the metadata from Spotify
 
     Args:

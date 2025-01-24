@@ -7,14 +7,14 @@ This Python project leverages the capabilities of a Raspberry Pi to record audio
 - Raspberry Pi with a connected microphone.
 - Spotify Developer Account and API credentials.
 - 64x64 LED screen connected to the Raspberry Pi.
-- Python 3.x installed on the Raspberry Pi.
+- Python 3.11 installed on the Raspberry Pi.
 
 ## Setup
 
 1. Clone the repository to your Raspberry Pi:
 
     ```bash
-    git clone https://github.com/yourusername/rpi-audio-recognition.git
+    git clone https://github.com/NirOnE/Visualizer.git
     ```
 
 2. Install dependencies:
@@ -30,8 +30,8 @@ This Python project leverages the capabilities of a Raspberry Pi to record audio
 
 4. Configure the application:
 
-    - Create a copy of `config.example.py` and rename it to `config.py`.
     - Replace `YOUR_SPOTIFY_CLIENT_ID` and `YOUR_SPOTIFY_CLIENT_SECRET` with your actual Spotify API credentials.
+    - Store them in an .env file 
 
 ## Usage
 
@@ -45,7 +45,7 @@ This Python project leverages the capabilities of a Raspberry Pi to record audio
 
 ## Customization
 
-- Adjust the audio recording settings in `audio_recorder.py`.
+- Adjust the audio recording settings for `audio_record.py` in `settings.py`.
 - Modify the LED screen display logic in `led_display.py`.
 - Explore additional features and customization based on your preferences.
 

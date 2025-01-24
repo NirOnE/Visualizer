@@ -2,7 +2,7 @@ import pyaudio
 import wave
 from icecream import ic
 import os
-from api_songrecog.audio_processing.settings import PATH_FILE, CHANNELS, CHUNK, FORMAT, RATE, RECORD_SECONDS, WAVE_OUTPUT_FILENAME
+from song_recognition.config.settings import PATH_FILE, CHANNELS, CHUNK, FORMAT, RATE, RECORD_SECONDS, WAVE_OUTPUT_FILENAME
 
 device_index = 1
 audio = pyaudio.PyAudio()

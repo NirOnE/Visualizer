@@ -1,5 +1,5 @@
 import subprocess
-from api_songrecog.song_recog import SongPlayed
+from song_recognition.services.recognition.song_recog import SongPlayed
 from icecream import ic
 import urllib.request
 import tkinter as tk

@@ -22,3 +22,11 @@ class ApiError(Exception):
             return f"API Error {self.error_code}: {self.error_messages[self.error_code]}"
         else:
             return f"Unknown API Error Code: {self.error_code}"
+
+
+class ArtworkError(Exception):
+    """Custom exception for artwork related errors."""
+
+    def __init__(self, message: str):
+        self.message = message
+        super().__init__(self.message)
