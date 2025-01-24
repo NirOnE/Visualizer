@@ -4,7 +4,7 @@ from icecream import ic
 import urllib.request
 import tkinter as tk
 from PIL import Image, ImageTk
-
+from song_recognition.config.settings import sPaths
 
 import os
 
@@ -13,14 +13,10 @@ recording = SongPlayed()
 recording.record_music()
 # recording.analyse_music()
 if (recording.analyse_music_shazam() == 0):
-    ic(recording.song_name, recording.album_name,
-       recording.artist, recording.artwork_link)
-    current_path = os.getcwd()
-    song_name = (recording.album_name + "_" +
-                 recording.artist + ".jpg").replace(" ", "")
-    song_path = (current_path + "/data/" + song_name)
-    urllib.request.urlretrieve(recording.artwork_link, song_path)
-    ic(song_path)
+    recording.song.save_artwork(sPaths.DATA_DIR)
+    ic(str(recording.song))
+    ic(recording.song.artwork_path)
+    ic(recording.song.artwork_url)
 else:
     ic("not recognized")
 

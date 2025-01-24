@@ -6,7 +6,7 @@ from shazamio import Shazam
 import asyncio
 from song_recognition.core.exceptions import ApiError
 from song_recognition.services.recognition.functions_arcloud import get_all_keys_with_positions, get_keys, get_value_for_key, escape_ansi
-
+from song_recognition.config.settings import sAudiosettings, sPaths, sAPIKeys
 load_dotenv()
 
 
@@ -42,7 +42,7 @@ def analyze_audio_acr(mdatas: {}) -> int: # type: ignore
         "host": _acrcloud__client_host
     }
 
-    audio = "data/tmp_recording.wav"
+    audio = "data/temp_recording.wav"
     ic(audio)
     acr = acrcloud.ACRcloud(config)
     audio = acr.recognize_audio(audio)
@@ -115,12 +115,10 @@ async def analyze_audio_shaz(mdatas: {}) -> int: # type: ignore
     Returns:
         error
     """
-
+    song_path = os.path.join(sPaths.DATA_DIR, sAudiosettings.WAVE_OUTPUT_FILENAME)
     shazam = Shazam()
-    out = await shazam.recognize_song("data/tmp_recording.wav")
+    out = await shazam.recognize_song(song_path)
     ic('-------------- SHAZAM---------------------------')
-    #   ic(out)
-    #   ic(out['matches'])
     if out['matches']:
         try:
             title = out['track']['sections'][0]['metapages'][1].get('caption')
@@ -129,7 +127,6 @@ async def analyze_audio_shaz(mdatas: {}) -> int: # type: ignore
         artist = out['track']['sections'][0]['metapages'][0].get('caption')
         album = out['track']['sections'][0]['metadata'][0]['text']
         artwork = out['track']['images'].get('coverarthq')
-        ic('Song: ', out['track']['share']['text'])
         mdatas['artist'] = escape_ansi(artist)
         mdatas['song_name'] = escape_ansi(title)
         mdatas['album_name'] = escape_ansi(album)

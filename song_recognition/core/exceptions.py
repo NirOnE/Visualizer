@@ -30,3 +30,15 @@ class ArtworkError(Exception):
     def __init__(self, message: str):
         self.message = message
         super().__init__(self.message)
+
+class SongRecognitionError(Exception):
+    """Base exception for song recognition failures"""
+    pass
+
+class AudioRecordingError(SongRecognitionError):
+    """Raised when audio recording encounters an issue"""
+    pass
+
+class RecognitionServiceError(SongRecognitionError):
+    """Raised when a recognition service fails"""
+    pass

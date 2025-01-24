@@ -1,7 +1,9 @@
 import asyncio
-from song_recognition.services.recognition import audio_record
+from ..record.audio_record import AudioRecorder
 from song_recognition.services.recognition import audio_analyse
 from song_recognition.services.artwork import lastfm_api
+from song_recognition.core.model import Song
+
 import io
 from icecream import ic
 
@@ -11,45 +13,11 @@ class SongPlayed:
     """ Object song """
 
     def __init__(self) -> None:
-        self._artist = "Unkown"
-        self._name = "Unkown"
-        self._album = "Unkown"
-        self._artwork_link = "Unkown"
-
-    @property
-    def artist(self):
-        return self._artist
-
-    @artist.setter
-    def artist(self, artist_name: str):
-        self._artist = artist_name
-
-    @property
-    def song_name(self):
-        return self._name
-
-    @song_name.setter
-    def song_name(self, song: str):
-        self._name = song
-
-    @property
-    def album_name(self):
-        return self._album
-
-    @album_name.setter
-    def album_name(self, album: str):
-        self._album = album
-
-    @property
-    def artwork_link(self):
-        return self._artwork_link
-
-    @artwork_link.setter
-    def artwork_link(self, link: str):
-        self._artwork_link = link
+        self.song = Song()
 
     def record_music(self) -> None:
-        return audio_record.record_audio_mic(input=1)
+        recorder = AudioRecorder()
+        return recorder.record(device_index=1)
 
     def analyse_music(self) -> None:
         mdatas = {'artist': '',
@@ -58,10 +26,10 @@ class SongPlayed:
         error = audio_analyse.analyze_audio_acr(mdatas)
 
         if error == 0:
-            self.artist = mdatas['artist']
-            self.album_name = mdatas['album_name']
-            self.song_name = mdatas['song_name']
-            self.artwork_link = lastfm_api.get_album_artwork(
+            self.song.artist = mdatas['artist']
+            self.song.album_name = mdatas['album_name']
+            self.song.song_name = mdatas['song_name']
+            self.song.artwork_link = lastfm_api.get_album_artwork(
                 self.album_name, self.artist)
 
         return error
@@ -75,10 +43,10 @@ class SongPlayed:
         error = loop.run_until_complete(
             audio_analyse.analyze_audio_shaz(mdatas))
 
-        self.artist = mdatas['artist']
-        self.album_name = mdatas['album_name']
-        self.song_name = mdatas['song_name']
-        self.artwork_link = mdatas['artwork']
+        self.song.artist = mdatas['artist']
+        self.song.album = mdatas['album_name']
+        self.song.title = mdatas['song_name']
+        self.song.artwork_url = mdatas['artwork']
         return error
 
 

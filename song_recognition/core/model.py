@@ -3,7 +3,7 @@ from typing import Optional
 import urllib.request
 from .exceptions import ArtworkError
 from pathlib import Path
-
+from icecream import ic
 
 @dataclass
 class Song:
@@ -19,8 +19,7 @@ class Song:
             raise ArtworkError("No artwork URL available")
 
         filename = f"{self.album}_{self.artist}.jpg".replace(" ", "")
-        path = directory / filename
-
+        path = directory +"/"+ filename
         try:
             urllib.request.urlretrieve(self.artwork_url, path)
             self.artwork_path = path
@@ -30,3 +29,7 @@ class Song:
 
     def __str__(self) -> str:
         return f"{self.title} by {self.artist} (from {self.album})"
+
+    def is_recognized(self) -> bool:
+        """Check if the song has been successfully recognized"""
+        return (self.artist != "Unknown" and self.title != "Unknown")
