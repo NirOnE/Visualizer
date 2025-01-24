@@ -116,6 +116,7 @@ async def analyze_audio_shaz(mdatas: {}) -> int: # type: ignore
         error
     """
     song_path = os.path.join(sPaths.DATA_DIR, sAudiosettings.WAVE_OUTPUT_FILENAME)
+    ic(song_path)
     shazam = Shazam()
     out = await shazam.recognize_song(song_path)
     ic('-------------- SHAZAM---------------------------')
