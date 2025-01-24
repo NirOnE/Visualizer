@@ -8,7 +8,11 @@ from song_recognition.config.settings import sPaths
 from song_recognition.services.recognition.songrecog import SongRecognitionApp
 
 import os
-os.environ['ALSA_LOG'] = 'null'
+# Configure ALSA environment
+os.environ['ALSA_CARD'] = '0'
+os.environ['ALSA_LOG'] = 'none'
+os.environ['ALSA_PCM_CARD'] = '0'
+os.environ['ALSA_PCM_DEVICE'] = '0'
 
 def main():
     sPaths.ensure_dirs()  # Ensure data directories exist
